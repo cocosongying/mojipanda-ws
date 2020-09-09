@@ -1,0 +1,22 @@
+{
+  "name": "mojipanda-ws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocosongying/mojipanda-ws.git"
+  },
+  "author": "cocosongying",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cocosongying/mojipanda-ws/issues"
+  },
+  "homepage": "https://github.com/cocosongying/mojipanda-ws#readme",
+  "dependencies": {
+    "ws": "^7.3.1"
+  }
+}
