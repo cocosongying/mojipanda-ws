@@ -1,5 +1,4 @@
-const WebSocket = require('ws');
-const WebSocketServer = WebSocket.Server;
+const WebSocketServer = require('ws').Server;
 
 const wss = new WebSocketServer({
     port: 5001
