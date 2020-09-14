@@ -21,7 +21,7 @@ wss.on('connection', (ws, req) => {
             if (!this.client) {
                 this.client = new Client(ws, params);
             }
-            this.client.deal(message);
+            this.client.dealData(message);
         } catch (error) {
             console.log(error);
         }

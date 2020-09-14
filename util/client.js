@@ -3,7 +3,7 @@ class Client {
         this.ws = ws;
         this.params = params;
     }
-    deal(data) {
+    dealData(data) {
         if (data.length == 0) {
             return;
         }
@@ -14,6 +14,9 @@ class Client {
         }
         //
         console.log(`[DEAL] Received: ${data}`);
+    }
+    sendData(data) {
+        this.ws.send(data);
     }
 }
 
