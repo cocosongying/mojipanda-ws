@@ -9,6 +9,16 @@ class Client {
         }
         try {
             data = JSON.parse(data);
+            let type = data[0];
+            let content = data[1];
+            switch (type) {
+                case 1:
+                    // create join play leave
+                    break;
+            
+                default:
+                    break;
+            }
         } catch (error) {
             return;
         }

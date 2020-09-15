@@ -16,6 +16,7 @@ wss.on('connection', (ws, req) => {
     wss.clients.forEach(client => {
         console.log(client.socketId);
     })
+    // [type, content]
     ws.on('message', (message) => {
         try {
             if (!this.client) {
