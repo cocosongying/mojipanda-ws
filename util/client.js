@@ -1,3 +1,5 @@
+const User = require('../user/base');
+
 class Client {
     constructor(ws, params) {
         this.ws = ws;
@@ -9,16 +11,15 @@ class Client {
         }
         try {
             data = JSON.parse(data);
-            let type = data[0];
-            let content = data[1];
-            switch (type) {
-                case 1:
-                    // create join play leave
-                    break;
-            
-                default:
-                    break;
+            if (!this.user) {
+                let params = {
+                    id: 1,
+                    name: 't',
+                    client: this,
+                }
+                this.user = new User(params);
             }
+            this.user.dealData(data)
         } catch (error) {
             return;
         }
@@ -26,6 +27,7 @@ class Client {
         console.log(`[DEAL] Received: ${data}`);
     }
     sendData(data) {
+        console.log(data);
         this.ws.send(data);
     }
 }

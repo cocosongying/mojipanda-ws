@@ -27,11 +27,7 @@ wss.on('connection', (ws, req) => {
             console.log(error);
         }
         console.log(`[SERVER] Received: ${message}`);
-        ws.send(`ECHO: ${message}`, (err) => {
-            if (err) {
-                console.log(`[SERVER] error: ${err}`);
-            }
-        });
+        ws.send('hello');
     });
     ws.on('close', () => {
         console.log('close');
