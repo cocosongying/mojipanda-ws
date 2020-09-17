@@ -27,8 +27,13 @@ class Client {
         console.log(`[DEAL] Received: ${data}`);
     }
     sendData(data) {
-        console.log(data);
         this.ws.send(data);
+    }
+    closed() {
+        if (this.ws) {
+            this.ws.close();
+        }
+        this.ws = null;
     }
 }
 

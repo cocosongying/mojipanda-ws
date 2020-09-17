@@ -12,10 +12,14 @@ wss.on('connection', (ws, req) => {
     let params = Url.parse(req.url, true).query;
     console.log(params);
     console.log(params.token);
-    ws.socketId = params.token;
     wss.clients.forEach(client => {
-        console.log(client.socketId);
+        if (client.socketId == params.token) {
+            client.close();
+            client = null;
+        }
+        console.log(1);
     })
+    ws.socketId = params.token;
     // [type, content]
     ws.on('message', (message) => {
         try {
@@ -31,8 +35,24 @@ wss.on('connection', (ws, req) => {
     });
     ws.on('close', () => {
         console.log('close');
+        try {
+            if (this.client) {
+                this.client.closed();
+            }
+            this.client = null;
+        } catch (error) {
+            console.log(error);
+        }
     });
     ws.on('error', () => {
         console.log('error');
+        try {
+            if (this.client) {
+                this.client.closed();
+            }
+            this.client = null;
+        } catch (error) {
+            console.log(error);
+        }
     })
 });

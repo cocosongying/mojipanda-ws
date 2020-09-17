@@ -25,7 +25,9 @@ class RPSPlay {
                     RSPManager.set('123', this);
                     this.addClient(this.user);
                 }
-                this.user.sendData('123');
+                this.user.sendData('[2,123]');
+                // TODO
+                this.user.sendData('[1,"这是一条通知消息"]');
                 break;
             case CmdType.RPSAction.JOIN:
                 rps = RSPManager.get(data[1]);
