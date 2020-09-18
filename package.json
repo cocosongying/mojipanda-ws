@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/cocosongying/mojipanda-ws#readme",
   "dependencies": {
+    "koa": "^2.13.0",
+    "koa-router": "^9.4.0",
     "ws": "^7.3.1"
   }
 }

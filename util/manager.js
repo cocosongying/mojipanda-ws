@@ -15,4 +15,5 @@ class Collection {
 
 module.exports = {
     RSPManager: new Collection(),
+    UserManager: new Collection(),
 }
