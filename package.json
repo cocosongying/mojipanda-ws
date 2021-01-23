@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/cocosongying/mojipanda-ws#readme",
   "dependencies": {
+    "cls-hooked": "^4.2.2",
     "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
+    "koa2-cors": "^2.0.6",
+    "uuid": "^8.3.2",
     "ws": "^7.3.1"
   }
 }

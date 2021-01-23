@@ -1,12 +1,12 @@
-const Koa = require('koa');
-const Router = require('koa-router');
 const Url = require('url');
 const WebSocketServer = require('ws').Server;
 const Client = require('./util/client');
 const UserManager = require('./util/manager').UserManager;
+const config = require('./config');
 
 const wss = new WebSocketServer({
-    port: 5001
+    host: config.host,
+    port: config.wsport
 });
 
 wss.on('connection', (ws, req) => {
@@ -28,8 +28,9 @@ wss.on('connection', (ws, req) => {
     //     }
     //     console.log(1);
     // });
-    // ws.socketId = params.token;
-    // [type, content]
+    if (!this.client) {
+        this.client = new Client(ws, params);
+    }
     ws.on('message', (message) => {
         try {
             if (!this.client) {
@@ -39,6 +40,7 @@ wss.on('connection', (ws, req) => {
         } catch (error) {
             console.log(error);
         }
+        console.log(wss.clients.size);
         console.log(`[SERVER] Received: ${message}`);
         ws.send('hello');
     });
@@ -46,6 +48,9 @@ wss.on('connection', (ws, req) => {
         console.log('close');
         try {
             if (this.client) {
+                if (this.client.ws === UserManager.get(params.token)) {
+                    UserManager.del(params.token);
+                }
                 this.client.closed();
             }
             this.client = null;
@@ -57,6 +62,10 @@ wss.on('connection', (ws, req) => {
         console.log('error');
         try {
             if (this.client) {
+                if (this.client.ws === UserManager.get(params.token)) {
+                    console.log('del key');
+                    UserManager.del(params.token);
+                }
                 this.client.closed();
             }
             this.client = null;
@@ -65,22 +74,10 @@ wss.on('connection', (ws, req) => {
         }
     })
 });
+console.log(`mojipanda ws websocket is starting at port 5001`);
 
-const app = new Koa();
-const router = new Router();
-router.get('/send', ctx => {
-    // wss.clients.forEach(client => {
-    //     let data = '消息' + Date.now();
-    //     client.send(`[1,"${data}"]`);
-    // })
-    let u = UserManager.get('1_1599579114772_uyo5hyptqwu1pc0scr');
-    if (u) {
-        let data = '消息' + Date.now();
-        u.send(`[1,"${data}"]`);
-    }
-    ctx.body = 'OK';
-});
-app.use(router.routes());
-app.listen(5002, 'localhost', () => {
-    console.log(`mojipanda ws server is starting at port 5002`);
+const init = require('./common/servlet');
+const app = init(require('./router'));
+app.listen(config.apiport, config.host, () => {
+    console.log(`mojipanda ws api is starting at port 5002`);
 });

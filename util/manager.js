@@ -8,8 +8,8 @@ class Collection {
     get(key) {
         return this.all[key];
     }
-    keys() {
-        return Object.keys(this.all);
+    del(key) {
+        delete this.all[key];
     }
 }
 
